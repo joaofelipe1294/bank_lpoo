@@ -32,6 +32,25 @@
             <artifactId>postgresql</artifactId>
             <version>9.3-1104-jdbc41</version>
         </dependency>
+        <!--<dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <version>2.23.1</version>
+        </dependency>-->
+        
+        <dependency>
+            <groupId>org.glassfish.jersey.bundles</groupId>
+            <artifactId>jaxrs-ri</artifactId>
+            <version>2.23.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>2.23.1</version>
+        </dependency>
+
+
+
     </dependencies>
     
 

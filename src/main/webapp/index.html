@@ -6,5 +6,32 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+    <script src = "js/app/models/Endereco.js"></script>
+    <script>
+        let endereco = new Endereco();
+        endereco.rua = 'Sete de Abril';
+        endereco.numero = 1294;
+        endereco.complemento = 'Apto 606';
+
+        let http = new XMLHttpRequest();
+        http.open('POST' , '/bank_lpoo/webresources/endereco');
+        http.setRequestHeader('Content-type' , "application/json");
+
+        http.onreadystatechange = () => {
+          if(http.readyState == 4){
+            if (http.status == 200) {
+              let dadosRecebidos = JSON.parse(http.responseText);
+              endereco = Object.assign(new Endereco(), dadosRecebidos);
+              console.log(endereco);
+            }else {
+
+            }
+          }
+        }
+        http.send(JSON.stringify(endereco));
+
+
+
+    </script>
     </body>
 </html>
