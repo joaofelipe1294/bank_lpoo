@@ -4,7 +4,7 @@ class CadastroClienteView {
   }
 
   template (){
-    this._elemtento.innerHTML = `<div class="panel panel-primary col-md-offset-1 col-md-10" style="padding:0px;">
+    this._elemtento.innerHTML = `<div id = "formCadastroCliente" class="panel panel-primary col-md-offset-1 col-md-10" style="padding:0px;">
                                   <div class="panel-heading">
                                     <h2>Novo Cliente</h2>
                                   </div>
@@ -24,7 +24,7 @@ class CadastroClienteView {
                                       </div>
                                       <div class="form-group">
                                         <label for="cpf">Cpf</label>
-                                        <input id = "number" type="number" class="form-control">
+                                        <input id = "cpf" type="number" class="form-control">
                                       </div>
                                       <div class="form-group">
                                         <label for="rua">Rua</label>
@@ -38,11 +38,16 @@ class CadastroClienteView {
                                         <label for="complemento">Complemento</label>
                                         <input id = "complemento" type="text" class="form-control">
                                       </div>
-                                      <button type="button" name="button" class="btn btn-primary">Cadastrar</button>
+                                      <button type="button" name="button" class="btn btn-primary" onclick = "clienteController.cadastra(event)">Cadastrar</button>
                                     </form>
                                   </div>
                                 </div>`;
     document.querySelector('#nome').focus();
+  }
+
+  remove(){
+    let elementoASerRemovido = document.querySelector('#formCadastroCliente');
+    this._elemtento.removeChild(elementoASerRemovido);
   }
 
 }

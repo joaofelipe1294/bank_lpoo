@@ -46,7 +46,7 @@ public class EnderecoWS {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
    public Response cadastra(Endereco endereco){
-       endereco = new EnderecoDAO().cadastra(endereco);
+       //endereco = new EnderecoDAO().cadastra(endereco);
        return Response.ok(endereco).build();
    }
     

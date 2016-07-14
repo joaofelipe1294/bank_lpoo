@@ -22,7 +22,7 @@ public class ClienteDAO {
         String sql = "INSERT INTO clientes (nome , sobrenome , rg , cpf , endereco_id) VALUES (? , ? , ? , ? , ?)";
         try (Connection con = new ConnectionFactory().getConnection()){
             con.setAutoCommit(false);
-            cliente.setEndereco(new EnderecoDAO().cadastra(cliente.getEndereco()));
+            cliente.setEndereco(new EnderecoDAO().cadastra(cliente.getEndereco() , con));
             try (PreparedStatement stmt = con.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS)){
                 stmt.setString(1, cliente.getNome());
                 stmt.setString(2, cliente.getSobrenome());

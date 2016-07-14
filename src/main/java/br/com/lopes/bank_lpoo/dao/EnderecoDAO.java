@@ -10,6 +10,7 @@ import br.com.lopes.bank_lpoo.conexao.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,10 @@ import java.util.List;
  */
 public class EnderecoDAO {
     
-    public Endereco cadastra(Endereco endereco){
+    public Endereco cadastra(Endereco endereco , Connection con) throws SQLException{
         String sql = "INSERT INTO enderecos (rua , numero , complemento ) VALUES (? , ? , ?);";
-        try (Connection con = new ConnectionFactory().getConnection()){
-            con.setAutoCommit(false);
+        //try (Connection con = new ConnectionFactory().getConnection()){
+        //    con.setAutoCommit(false);
             try (PreparedStatement stmt = con.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS)){
                 stmt.setString(1, endereco.getRua());
                 stmt.setInt(2, endereco.getNumero());
@@ -31,13 +32,13 @@ public class EnderecoDAO {
                 stmt.execute();
                 try (ResultSet rs = stmt.getGeneratedKeys()){
                     if(rs.next()){
-                        con.commit();
+                        //con.commit();
                         endereco.setEnderecoId(rs.getLong("endereco_id"));
                         return endereco;
                     }else{
+                        con.rollback();
                         throw new RuntimeException();
-                    }
-                    
+                    }                    
                 } catch (Exception e) {
                     con.rollback();
                     throw new RuntimeException();
@@ -46,10 +47,10 @@ public class EnderecoDAO {
                 con.rollback();
                 throw new RuntimeException();
             }
-        } catch (Exception e) {
+       /* } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
-        }
+        }*/
     }
     
     public List<Endereco> lista(){
