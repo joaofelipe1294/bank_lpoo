@@ -1,4 +1,4 @@
-﻿create table if not exists endereco (
+﻿create table if not exists enderecos (
        endereco_id serial ,
        rua varchar (255) not null ,
        numero int not null ,
@@ -6,7 +6,7 @@
        constraint pk_endereco primary key (endereco_id)
 );
 
-create table if not exists cliente (
+create table if not exists clientes (
        cliente_id serial ,
        nome varchar (255) not null ,
        sobrenome varchar (255) not null ,

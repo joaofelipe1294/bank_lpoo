@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,7 +21,7 @@ import java.sql.Statement;
 public class EnderecoDAO {
     
     public Endereco cadastra(Endereco endereco){
-        String sql = "INSERT INTO endereco (rua , numero , complemento ) VALUES (? , ? , ?);";
+        String sql = "INSERT INTO enderecos (rua , numero , complemento ) VALUES (? , ? , ?);";
         try (Connection con = new ConnectionFactory().getConnection()){
             con.setAutoCommit(false);
             try (PreparedStatement stmt = con.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS)){
@@ -45,6 +47,36 @@ public class EnderecoDAO {
                 throw new RuntimeException();
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+    
+    public List<Endereco> lista(){
+        String sql = "select * from enderecos;";
+        try (Connection con = new ConnectionFactory().getConnection()){
+            try (PreparedStatement stmt = con.prepareStatement(sql)){
+                try (ResultSet rs = stmt.executeQuery()){
+                    List<Endereco> listaEnderecos = new ArrayList<>();
+                    while(rs.next()){
+                        Endereco endereco = new Endereco();
+                        endereco.setEnderecoId(rs.getLong("endereco_id"));
+                        endereco.setRua(rs.getString("rua"));
+                        endereco.setNumero(rs.getInt("numero"));
+                        endereco.setComplemento(rs.getString("complemento"));
+                        listaEnderecos.add(endereco);
+                    }
+                    return listaEnderecos;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException();
         }
     }

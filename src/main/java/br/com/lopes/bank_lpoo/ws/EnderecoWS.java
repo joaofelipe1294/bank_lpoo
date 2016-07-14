@@ -7,6 +7,7 @@ package br.com.lopes.bank_lpoo.ws;
 
 import br.com.lopes.bank_lpoo.beans.Endereco;
 import br.com.lopes.bank_lpoo.dao.EnderecoDAO;
+import com.google.gson.Gson;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -37,10 +38,10 @@ public class EnderecoWS {
     }
 
     @GET
-    @Produces("application/json")
-    public String getJson() {
-        //TODO return proper representation object
-        return "TO";
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listaEnderecos() {
+        String json = new Gson().toJson(new EnderecoDAO().lista());
+        return Response.ok(json).build();
     }
 
     @POST

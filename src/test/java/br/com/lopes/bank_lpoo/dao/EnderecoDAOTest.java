@@ -20,7 +20,7 @@ public class EnderecoDAOTest {
 
     /**
      * Test of cadastra method, of class EnderecoDAO.
-     */
+     *
     @Test
     public void testCadastra() {
         Endereco endereco = new Endereco();
@@ -35,6 +35,14 @@ public class EnderecoDAOTest {
             e.printStackTrace();
             fail();
         }
+    }*/
+
+    /**
+     * Test of lista method, of class EnderecoDAO.
+     */
+    @Test
+    public void testLista() {
+        System.out.println(new EnderecoDAO().lista());
     }
     
 }
