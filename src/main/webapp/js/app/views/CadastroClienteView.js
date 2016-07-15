@@ -1,10 +1,10 @@
-class CadastroClienteView {
+class CadastroClienteView extends ClienteView{
   constructor(elemento) {
-    this._elemtento = document.querySelector(`#${elemento}`);
+    super(elemento);
   }
 
   template (){
-    this._elemtento.innerHTML = `<div id = "formCadastroCliente" class="panel panel-primary col-md-offset-1 col-md-10" style="padding:0px;">
+    this._elemento.innerHTML = `<div id = "formCadastroCliente" class="panel panel-primary col-md-offset-1 col-md-10" style="padding:0px;">
                                   <div class="panel-heading">
                                     <h2>Novo Cliente</h2>
                                   </div>
@@ -12,27 +12,27 @@ class CadastroClienteView {
                                     <form action="">
                                       <div class="form-group">
                                         <label for="nome">Nome</label>
-                                        <input id = "nome" type="text" class="form-control">
+                                        <input id = "nome" type="text" class="form-control" required>
                                       </div>
                                       <div class="form-group">
                                         <label for="sobrenome">Sobrenome</label>
-                                        <input id = "sobrenome" type="text" class="form-control">
+                                        <input id = "sobrenome" type="text" class="form-control" required = "true">
                                       </div>
                                       <div class="form-group">
                                         <label for="">Rg</label>
-                                        <input id = "rg" type="number" class="form-control">
+                                        <input id = "rg" type="number" class="form-control" maxlength="20" required = "true">
                                       </div>
                                       <div class="form-group">
                                         <label for="cpf">Cpf</label>
-                                        <input id = "cpf" type="number" class="form-control">
+                                        <input id = "cpf" type="number" class="form-control" maxlength="14" required = "true">
                                       </div>
                                       <div class="form-group">
                                         <label for="rua">Rua</label>
-                                        <input id = "rua" type="text" class="form-control">
+                                        <input id = "rua" type="text" class="form-control" required = "true">
                                       </div>
                                       <div class="form-group">
                                         <label for="numero">Número</label>
-                                        <input id = "numero" type="number" class="form-control">
+                                        <input id = "numero" type="number" class="form-control" required = "true">
                                       </div>
                                       <div class="form-group">
                                         <label for="complemento">Complemento</label>
@@ -47,7 +47,7 @@ class CadastroClienteView {
 
   remove(){
     let elementoASerRemovido = document.querySelector('#formCadastroCliente');
-    this._elemtento.removeChild(elementoASerRemovido);
+    this._elemento.removeChild(elementoASerRemovido);
   }
 
 }

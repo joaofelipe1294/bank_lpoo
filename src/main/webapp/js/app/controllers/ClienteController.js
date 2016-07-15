@@ -1,6 +1,7 @@
 class ClienteController {
   constructor() {
-    this._clienteView = new CadastroClienteView('corpo');
+    this._cadastroClienteView = new CadastroClienteView('corpo');
+    this._listaClienteView = new ListaClientesView('corpo');
   }
 
   cadastra(event){
@@ -16,7 +17,7 @@ class ClienteController {
     cliente.cpf = document.querySelector('#cpf').value;
     cliente.endereco = endereco;
     new ClienteService().cadastra(cliente);
-    this._clienteView.remove();
+    this._cadastroClienteView.remove();
   }
 
   _limpaCampos(){
@@ -31,7 +32,56 @@ class ClienteController {
 
   exibeFormulario(event){
     event.preventDefault();
-    this._clienteView.template();
+    this._cadastroClienteView.template();
   }
+
+
+
+  carregaClientes(event){
+    //event.preventDefault();
+    this._listaClienteView.template();
+    let clientes = [];
+    let promessa = new ClienteService().lista();
+    promessa.then(dados => {
+        dados.forEach(cliente => clientes.push(cliente));
+        this._listaClienteView.carrega(clientes);
+      }).catch(error => alert(error));
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
