@@ -35,10 +35,8 @@ class ClienteController {
     this._cadastroClienteView.template();
   }
 
-
-
   carregaClientes(event){
-    //event.preventDefault();
+    event.preventDefault();
     this._listaClienteView.template();
     let clientes = [];
     let promessa = new ClienteService().lista();
@@ -48,7 +46,20 @@ class ClienteController {
       }).catch(error => alert(error));
   }
 
-
+  buscaPorNome(event){
+    event.preventDefault();
+    this._listaClienteView.limpaLista();
+    let cliente = new Cliente();
+    let campoPesquisa = document.querySelector('#nomeBusca');
+    cliente.nome = campoPesquisa.value;
+    let clientes = [];
+    let promessa = new ClienteService().pesquisaPorNome(cliente);
+    promessa.then(dados => {
+        dados.forEach(cliente => clientes.push(cliente));
+        this._listaClienteView.carrega(clientes);
+        campoPesquisa.value = '';
+      }).catch(error => alert(error));
+  }
 
 
 

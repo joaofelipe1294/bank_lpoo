@@ -6,8 +6,8 @@ class ListaClientesView extends ClienteView{
   template (){
     this._elemento.innerHTML = `<form class="col-md-3">
                                     <div class="form-group">
-                                      <input type="text" class="form-control formBuscaCliente" placeholder="Nome">
-                                      <button type="button" name="button" class = "btn btn-info"><span class = "glyphicon glyphicon-search"></span></button>
+                                      <input type="text" class="form-control formBuscaCliente" placeholder="Nome" id = "nomeBusca">
+                                      <button type="button" name="button" class = "btn btn-info" id = "pesquisaPorNome" onclick = "clienteController.buscaPorNome(event)"><span class = "glyphicon glyphicon-search"></span></button>
                                     </div>
                                   </form>
 
@@ -60,6 +60,12 @@ class ListaClientesView extends ClienteView{
                             <td>${cliente.clienteId}</td>
                           </tr>`
     });
+  }
+
+  limpaLista(){
+    let tabela = document.querySelector('#corpoTabela');
+    while (tabela.firstChild)
+      tabela.removeChild(tabela.firstChild);
   }
 
 

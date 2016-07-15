@@ -46,10 +46,21 @@ public class ClienteDAOTest {
 
     /**
      * Test of lista method, of class ClienteDAO.
-     */
+     *
     @Test
     public void testLista() {
         System.out.println(new ClienteDAO().lista());
+    }
+
+
+    /**
+     * Test of pegaPorNome method, of class ClienteDAO.
+     */
+    @Test
+    public void testPegaPorNome() {
+        Cliente cliente = new Cliente();
+        cliente.setNome("al");
+        System.out.println(new ClienteDAO().pegaPorNome(cliente));
     }
     
 }

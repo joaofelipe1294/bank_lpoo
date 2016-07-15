@@ -41,6 +41,26 @@ class ClienteService {
     });
   }
 
+  pesquisaPorNome(cliente){
+    return new Promise((resolve, reject) => {
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', '/bank_lpoo/webresources/cliente/nome=' + cliente.nome);
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState == 4) {
+                if(xhr.status == 200) {
+                    let clientes = JSON.parse(xhr.responseText).map(cliente =>  Object.assign(new Cliente(), cliente));
+                    resolve(clientes);
+                } else {
+                    console.log(xhr.responseText);
+                    reject('Não foi possível obter os clientes');
+                }
+            }
+        }
+        xhr.send();
+    });
+  }
+
 
 
 

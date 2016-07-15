@@ -91,4 +91,41 @@ public class ClienteDAO {
         }
     }
     
+    public List<Cliente> pegaPorNome(Cliente cliente){
+        String sql = "select cliente_id ,\n" +
+                     "       nome ,\n" +
+                     "       sobrenome ,\n" +
+                     "       rg ,\n" +
+                     "       cpf \n" +
+                     "from clientes\n" +
+                     "where nome ilike (?);";
+        try (Connection con = new ConnectionFactory().getConnection()){
+            try (PreparedStatement stmt = con.prepareStatement(sql)){
+                stmt.setString(1, "%" + cliente.getNome() + "%");
+                try (ResultSet rs = stmt.executeQuery()){
+                    List<Cliente> listaClientes = new ArrayList<>();
+                    while(rs.next()){
+                        Cliente clienteBanco = new Cliente();
+                        clienteBanco.setClienteId(rs.getLong("cliente_id"));
+                        clienteBanco.setNome(rs.getString("nome"));
+                        clienteBanco.setSobrenome(rs.getString("sobrenome"));
+                        clienteBanco.setCpf(rs.getString("cpf"));
+                        clienteBanco.setRg(rs.getString("rg"));
+                        listaClientes.add(clienteBanco);
+                    }
+                    return listaClientes;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();    
+                throw new RuntimeException();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+    
 }
