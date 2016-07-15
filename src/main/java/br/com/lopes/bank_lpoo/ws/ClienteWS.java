@@ -7,6 +7,8 @@ package br.com.lopes.bank_lpoo.ws;
 
 import br.com.lopes.bank_lpoo.beans.Cliente;
 import br.com.lopes.bank_lpoo.dao.ClienteDAO;
+import com.google.gson.Gson;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -36,32 +38,30 @@ public class ClienteWS {
     public ClienteWS() {
     }
 
-    /**
-     * Retrieves representation of an instance of br.com.lopes.bank_lpoo.ws.ClienteWS
-     * @return an instance of java.lang.String
-     */
     @GET
     @Produces("application/json")
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * PUT method for updating or creating an instance of ClienteWS
-     * @param content representation for the resource
-     * @return an HTTP response with content of the updated or created resource.
-     */
-    @PUT
-    @Consumes("application/json")
-    public void putJson(String content) {
+    public Response getJson() {
+        try {
+            List<Cliente> listaClientes = new ClienteDAO().lista();
+            String json = new Gson().toJson(listaClientes);
+            return Response.ok(json).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+        
     }
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response cadastra(Cliente cliente){
-        cliente = new ClienteDAO().cadastra(cliente);
-        return Response.ok(cliente).build();
+        try {
+            cliente = new ClienteDAO().cadastra(cliente);
+            return Response.ok(cliente).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

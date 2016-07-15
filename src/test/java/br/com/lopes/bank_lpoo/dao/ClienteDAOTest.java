@@ -21,7 +21,7 @@ public class ClienteDAOTest {
 
     /**
      * Test of cadastra method, of class ClienteDAO.
-     */
+     *
     @Test
     public void testCadastra() {
         Cliente cliente = new Cliente();
@@ -42,6 +42,14 @@ public class ClienteDAOTest {
             e.printStackTrace();
             fail();
         }
+    }*/
+
+    /**
+     * Test of lista method, of class ClienteDAO.
+     */
+    @Test
+    public void testLista() {
+        System.out.println(new ClienteDAO().lista());
     }
     
 }

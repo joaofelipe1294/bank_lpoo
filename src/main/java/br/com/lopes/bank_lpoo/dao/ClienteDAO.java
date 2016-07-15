@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -45,6 +47,41 @@ public class ClienteDAO {
                 }
             } catch (Exception e) {
                 con.rollback();
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    public List<Cliente> lista(){
+        String sql = "select cliente_id ,\n" +
+                     "       nome ,\n" +
+                     "       sobrenome ,\n" +
+                     "       rg ,\n" +
+                     "       cpf\n" +
+                     "from clientes";
+        try (Connection con = new ConnectionFactory().getConnection()){
+            try (PreparedStatement stmt = con.prepareStatement(sql)){
+                try (ResultSet rs = stmt.executeQuery()){
+                    List<Cliente> listaClientes = new ArrayList<>();
+                    while(rs.next()){
+                        Cliente cliente = new Cliente();
+                        cliente.setClienteId(rs.getLong("cliente_id"));
+                        cliente.setNome(rs.getString("nome"));
+                        cliente.setSobrenome(rs.getString("sobrenome"));
+                        cliente.setCpf(rs.getString("cpf"));
+                        cliente.setRg(rs.getString("rg"));
+                        listaClientes.add(cliente);
+                    }
+                    return listaClientes;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException();
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
                 throw new RuntimeException();
             }
