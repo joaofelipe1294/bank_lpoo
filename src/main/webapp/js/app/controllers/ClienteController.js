@@ -46,14 +46,37 @@ class ClienteController {
       }).catch(error => alert(error));
   }
 
-  buscaPorNome(event){
+  busca(event){
     event.preventDefault();
     this._listaClienteView.limpaLista();
-    let cliente = new Cliente();
-    let campoPesquisa = document.querySelector('#nomeBusca');
-    cliente.nome = campoPesquisa.value;
+    let atributoPesquisa = null;
+    let campoPesquisa = null;
+    let valor = null;
+    if(event.target.tagName == 'SPAN'){
+      atributoPesquisa = event.target.parentNode.value;
+      campoPesquisa = event.target.parentNode.parentNode.children[0];
+      valor = campoPesquisa.value;
+    }else if (event.target.tagName == 'BUTTON') {
+      atributoPesquisa = event.target.value;
+      campoPesquisa = event.target.parentNode.children[0];
+      valor = campoPesquisa.value;
+    }
     let clientes = [];
-    let promessa = new ClienteService().pesquisaPorNome(cliente);
+    let promessa = new ClienteService().pesquisa(atributoPesquisa , valor);
+    promessa.then(dados => {
+        dados.forEach(cliente => clientes.push(cliente));
+        this._listaClienteView.carrega(clientes);
+        campoPesquisa.value = '';
+      }).catch(error => alert(error));
+  }
+
+  buscaPorSobrenome(event){
+    event.preventDefault();
+    this._listaClienteView.limpaLista();
+    let campoPesquisa = document.querySelector('#sobrenomeBusca');
+    let sobrenome = campoPesquisa.value;
+    let clientes = [];
+    let promessa = new ClienteService().pesquisa('sobrenome' , sobrenome);
     promessa.then(dados => {
         dados.forEach(cliente => clientes.push(cliente));
         this._listaClienteView.carrega(clientes);

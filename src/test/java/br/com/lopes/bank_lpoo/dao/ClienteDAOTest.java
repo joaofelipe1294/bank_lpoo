@@ -59,8 +59,8 @@ public class ClienteDAOTest {
     @Test
     public void testPegaPorNome() {
         Cliente cliente = new Cliente();
-        cliente.setNome("al");
-        System.out.println(new ClienteDAO().pegaPorNome(cliente));
+        cliente.setSobrenome("co");
+        System.out.println(new ClienteDAO().pegaPorSobrenome(cliente));
     }
     
 }

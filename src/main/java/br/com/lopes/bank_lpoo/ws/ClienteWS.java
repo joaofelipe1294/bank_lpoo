@@ -69,11 +69,28 @@ public class ClienteWS {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("nome={nome}")
-    public Response pega(@PathParam("nome") String nome){
+    public Response pegaPorNome(@PathParam("nome") String nome){
         try {
             Cliente cliente = new Cliente();
             cliente.setNome(nome);
             List<Cliente> listaClientes = new ClienteDAO().pegaPorNome(cliente);
+            String json = new Gson().toJson(listaClientes);
+            return Response.ok(json).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("sobrenome={sobrenome}")
+    public Response pegaPorSobrenome(@PathParam("sobrenome") String sobrenome){
+        try {
+            Cliente cliente = new Cliente();
+            cliente.setSobrenome(sobrenome);
+            List<Cliente> listaClientes = new ClienteDAO().pegaPorSobrenome(cliente);
             String json = new Gson().toJson(listaClientes);
             return Response.ok(json).build();
         } catch (Exception e) {

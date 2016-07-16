@@ -41,11 +41,11 @@ class ClienteService {
     });
   }
 
-  pesquisaPorNome(cliente){
+  pesquisa(atributo , valorBusca){
     return new Promise((resolve, reject) => {
 
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', '/bank_lpoo/webresources/cliente/nome=' + cliente.nome);
+        xhr.open('GET', `/bank_lpoo/webresources/cliente/${atributo}=${valorBusca}`);
         xhr.onreadystatechange = () => {
             if(xhr.readyState == 4) {
                 if(xhr.status == 200) {

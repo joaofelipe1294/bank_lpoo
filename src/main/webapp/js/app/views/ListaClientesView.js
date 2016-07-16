@@ -6,15 +6,19 @@ class ListaClientesView extends ClienteView{
   template (){
     this._elemento.innerHTML = `<form class="col-md-3">
                                     <div class="form-group">
-                                      <input type="text" class="form-control formBuscaCliente" placeholder="Nome" id = "nomeBusca">
-                                      <button type="button" name="button" class = "btn btn-info" id = "pesquisaPorNome" onclick = "clienteController.buscaPorNome(event)"><span class = "glyphicon glyphicon-search"></span></button>
+                                      <input type="text" class="form-control formBuscaCliente" placeholder="Nome">
+                                      <button type="button" name="button" class = "btn btn-info" onclick = "clienteController.busca(event)" value = "nome">
+                                        <span class = "glyphicon glyphicon-search"></span>
+                                      </button>
                                     </div>
                                   </form>
 
                                   <form class="col-md-3">
                                     <div class="form-group">
-                                      <input type="text" class="form-control formBuscaCliente" placeholder="Sobrenome">
-                                      <button type="button" name="button" class = "btn btn-info"><span class = "glyphicon glyphicon-search"></span></button>
+                                      <input type="text" class="form-control formBuscaCliente" placeholder="Sobrenome" id = "sobrenomeBusca">
+                                      <button type="button" name="button" class = "btn btn-info" onclick = "clienteController.busca(event)" value = "sobrenome">
+                                        <span class = "glyphicon glyphicon-search"></span>
+                                      </button>
                                     </div>
                                   </form>
 
@@ -38,7 +42,7 @@ class ListaClientesView extends ClienteView{
                                         <th class = "active text-center" style = "width:22%;">Nome</th>
                                         <th class = "active text-center" style = "width:22%;">Sobrenome</th>
                                         <th class = "active text-center" style = "width:22%;">Rg</th>
-                                        <th class = "active text-center" style = "width:22%;">Cpf</th>.
+                                        <th class = "active text-center" style = "width:22%;">Cpf</th>
                                         <th class = "active text-center">Opcoes</th>
                                       </thead>
                                       <tbody id = "corpoTabela">
