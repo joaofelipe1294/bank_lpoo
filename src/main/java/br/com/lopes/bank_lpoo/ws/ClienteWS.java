@@ -131,4 +131,21 @@ public class ClienteWS {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("id={id}")
+    public Response pegaPorClienteId(@PathParam("id") long clienteId){
+        try {
+            Cliente cliente = new Cliente();
+            cliente.setClienteId(clienteId);
+            cliente = new ClienteDAO().pegaPorClienteId(cliente);
+            String json = new Gson().toJson(cliente);
+            return Response.ok(json).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

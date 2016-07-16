@@ -6,6 +6,7 @@
 package br.com.lopes.bank_lpoo.dao;
 
 import br.com.lopes.bank_lpoo.beans.Cliente;
+import br.com.lopes.bank_lpoo.beans.Endereco;
 import br.com.lopes.bank_lpoo.conexao.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -225,6 +226,52 @@ public class ClienteDAO {
                         listaClientes.add(clienteBanco);
                     }
                     return listaClientes;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+    
+    public Cliente pegaPorClienteId(Cliente cliente){
+        String sql = "select c.cliente_id ,\n" +
+                     "       c.nome ,\n" +
+                     "       c.sobrenome ,\n" +
+                     "       c.rg ,\n" +
+                     "       c.cpf ,\n" +
+                     "       c.endereco_id ,\n" +
+                     "       e.rua ,\n" +
+                     "       e.numero ,\n" +
+                     "       e.complemento\n" +
+                     "from clientes c\n" +
+                     "     inner join enderecos e on e.endereco_id = c.endereco_id\n" +
+                     "where cliente_id = ?;";
+        try (Connection con = new ConnectionFactory().getConnection()){
+            try (PreparedStatement statement = con.prepareStatement(sql)){
+                statement.setLong(1, cliente.getClienteId());
+                try (ResultSet rs = statement.executeQuery()){
+                    Cliente clienteBanco = new Cliente();
+                    if(rs.next()){
+                        clienteBanco.setClienteId(rs.getLong("cliente_id"));
+                        clienteBanco.setNome(rs.getString("nome"));
+                        clienteBanco.setSobrenome(rs.getString("sobrenome"));
+                        clienteBanco.setCpf(rs.getString("cpf"));
+                        clienteBanco.setRg(rs.getString("rg"));
+                        Endereco endereco = new Endereco();
+                        endereco.setRua(rs.getString("rua"));
+                        endereco.setNumero(rs.getInt("numero"));
+                        endereco.setComplemento(rs.getString("complemento"));
+                        endereco.setEnderecoId(rs.getLong("endereco_id"));
+                        clienteBanco.setEndereco(endereco);
+                    }
+                    return clienteBanco;
                 } catch (Exception e) {
                     e.printStackTrace();
                     throw new RuntimeException();

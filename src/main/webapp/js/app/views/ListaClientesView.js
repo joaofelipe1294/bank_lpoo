@@ -4,7 +4,8 @@ class ListaClientesView extends ClienteView{
   }
 
   template (){
-    this._elemento.innerHTML = `<form class="col-md-3">
+    this._elemento.innerHTML = `<div id = "listaClientes">
+                                  <form class="col-md-3">
                                     <div class="form-group">
                                       <input type="text" class="form-control formBuscaCliente" placeholder="Nome">
                                       <button type="button" name="button" class = "btn btn-info" onclick = "clienteController.busca(event)" value = "nome">
@@ -43,17 +44,23 @@ class ListaClientesView extends ClienteView{
                                   <div class="col-md-9 col-md-offset-1">
                                     <table class="table table-striped table-hover table-bordered">
                                       <thead class="info">
-                                        <th class = "active text-center" style = "width:22%;">Nome</th>
-                                        <th class = "active text-center" style = "width:22%;">Sobrenome</th>
-                                        <th class = "active text-center" style = "width:22%;">Rg</th>
-                                        <th class = "active text-center" style = "width:22%;">Cpf</th>
-                                        <th class = "active text-center">Opcoes</th>
+                                        <th class = "active text-center celula">Nome</th>
+                                        <th class = "active text-center celula">Sobrenome</th>
+                                        <th class = "active text-center celula">Rg</th>
+                                        <th class = "active text-center celula">Cpf</th>
+                                        <th class = "active text-center"></th>
                                       </thead>
                                       <tbody id = "corpoTabela">
 
                                       </tbody>
                                     </table>
-                                  </div>`
+                                  </div>
+                                </div>`
+  }
+
+  remove(){
+    let elementoASerRemovido = document.querySelector('#listaClientes');
+    this._elemento.removeChild(elementoASerRemovido);
   }
 
 
@@ -65,7 +72,11 @@ class ListaClientesView extends ClienteView{
                             <td>${cliente.sobrenome}</td>
                             <td>${cliente.rg}</td>
                             <td>${cliente.cpf}</td>
-                            <td>${cliente.clienteId}</td>
+                            <td>
+                              <button value = "id" onclick = "clienteController.pegaPorId(event , ${cliente.clienteId})" class = "btn btn-info">
+                                <span class = "glyphicon glyphicon-plus"></span>
+                                </button>
+                            </td>
                           </tr>`
     });
   }

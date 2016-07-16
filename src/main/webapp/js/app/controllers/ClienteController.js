@@ -1,7 +1,7 @@
 class ClienteController {
   constructor() {
     this._cadastroClienteView = new CadastroClienteView('corpo');
-    this._listaClienteView = new ListaClientesView('corpo');
+    this._listaClientesView = new ListaClientesView('corpo');
   }
 
   cadastra(event){
@@ -37,18 +37,18 @@ class ClienteController {
 
   carregaClientes(event){
     event.preventDefault();
-    this._listaClienteView.template();
+    this._listaClientesView.template();
     let clientes = [];
     let promessa = new ClienteService().lista();
     promessa.then(dados => {
         dados.forEach(cliente => clientes.push(cliente));
-        this._listaClienteView.carrega(clientes);
+        this._listaClientesView.carrega(clientes);
       }).catch(error => alert(error));
   }
 
   busca(event){
     event.preventDefault();
-    this._listaClienteView.limpaLista();
+    this._listaClientesView.limpaLista();
     let atributoPesquisa = null;
     let campoPesquisa = null;
     let valor = null;
@@ -65,9 +65,16 @@ class ClienteController {
     let promessa = new ClienteService().pesquisa(atributoPesquisa , valor);
     promessa.then(dados => {
         dados.forEach(cliente => clientes.push(cliente));
-        this._listaClienteView.carrega(clientes);
+        this._listaClientesView.carrega(clientes);
         campoPesquisa.value = '';
       }).catch(error => alert(error));
+  }
+
+  pegaPorId(event , clienteId){
+    event.preventDefault();
+    this._listaClientesView.remove();
+    let promessa = new ClienteService().pegaPorId(clienteId);
+    promessa.then(cliente => console.log(cliente)).catch(erro => alert(erro));
   }
 
 }

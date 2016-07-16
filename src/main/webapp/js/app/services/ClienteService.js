@@ -61,30 +61,26 @@ class ClienteService {
     });
   }
 
+  pegaPorId(clienteId){
+    return new Promise((resolve, reject) => {
 
-
-
-    /*let http = new XMLHttpRequest();
-    http.open('GET' , '/bank_lpoo/webresources/cliente');
-    http.setRequestHeader('Content-type' , "application/json");
-    http.onreadystatechange = () => {
-      if(http.readyState == 4){
-        if (http.status == 200) {
-          let dadosRecebidos = JSON.parse(http.responseText);
-          alert('Clientes carregados !');
-          let clientes = [];
-          dadosRecebidos.then(dadosRecebidos => {
-            dadosRecebidos.forEach(cliente => clientes.push(Object.assign(new Cliente(), cliente)));
-          });
-          console.log(clientes);
-          return this._converteObjectParaCliente(clientes);
-        }else {
-          alert('Erro ao carregar clientes');
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', `/bank_lpoo/webresources/cliente/id=${clienteId}`);
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState == 4) {
+                if(xhr.status == 200) {
+                    let cliente = JSON.parse(xhr.responseText)
+                    cliente = Object.assign(new Cliente(), cliente);
+                    resolve(cliente);
+                } else {
+                    console.log(xhr.responseText);
+                    reject('Não foi possível obter os clientes');
+                }
+            }
         }
-      }
-    }
-    http.send();
-  }*/
+        xhr.send();
+    });
+  }
 
 
 }
