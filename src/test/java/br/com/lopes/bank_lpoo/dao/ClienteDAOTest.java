@@ -55,12 +55,35 @@ public class ClienteDAOTest {
 
     /**
      * Test of pegaPorNome method, of class ClienteDAO.
-     */
+     *
     @Test
     public void testPegaPorNome() {
         Cliente cliente = new Cliente();
         cliente.setClienteId(12);
         System.out.println(new ClienteDAO().pegaPorClienteId(cliente));
+    }*/
+    
+    @Test
+    public void testEdita(){
+        Cliente cliente = new Cliente();
+        cliente.setClienteId(12);
+        cliente.setNome("José");
+        cliente.setSobrenome("Aldo Júnior");
+        cliente.setRg("02020202020");
+        cliente.setCpf("989898090909");
+        Endereco endereco = new Endereco();
+        endereco.setEnderecoId(17);
+        endereco.setRua("Manauara");
+        endereco.setNumero(12);
+        endereco.setComplemento("Nova União");
+        cliente.setEndereco(endereco);
+        try {
+            new ClienteDAO().edita(cliente);
+            assertTrue(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
     
 }

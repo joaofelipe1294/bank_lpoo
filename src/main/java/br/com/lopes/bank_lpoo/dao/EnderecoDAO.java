@@ -5,6 +5,7 @@
  */
 package br.com.lopes.bank_lpoo.dao;
 
+import br.com.lopes.bank_lpoo.beans.Cliente;
 import br.com.lopes.bank_lpoo.beans.Endereco;
 import br.com.lopes.bank_lpoo.conexao.ConnectionFactory;
 import java.sql.Connection;
@@ -77,6 +78,22 @@ public class EnderecoDAO {
                 throw new RuntimeException();
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+    
+    public void edita(Endereco endereco , Connection con) throws SQLException{
+        String sql = "UPDATE enderecos set rua = ? , numero = ? , complemento = ? where endereco_id = ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)){
+            stmt.setString(1, endereco.getRua());
+            stmt.setInt(2, endereco.getNumero());
+            stmt.setString(3, endereco.getComplemento());
+            stmt.setLong(4, endereco.getEnderecoId());
+            stmt.execute();
+            con.commit();
+        } catch (Exception e) {
+            con.rollback();
             e.printStackTrace();
             throw new RuntimeException();
         }

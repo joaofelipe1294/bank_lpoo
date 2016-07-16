@@ -2,6 +2,7 @@ class ClienteController {
   constructor() {
     this._cadastroClienteView = new CadastroClienteView('corpo');
     this._listaClientesView = new ListaClientesView('corpo');
+    this._editaClienteView = new EditaClienteView('corpo');
   }
 
   cadastra(event){
@@ -74,7 +75,48 @@ class ClienteController {
     event.preventDefault();
     this._listaClientesView.remove();
     let promessa = new ClienteService().pegaPorId(clienteId);
-    promessa.then(cliente => console.log(cliente)).catch(erro => alert(erro));
+    promessa.then(cliente => {
+      this._editaClienteView.template(cliente);
+    }).catch(erro => alert(erro));
   }
+
+  edita(event , clienteId , enderecoId){
+    event.preventDefault();
+    let endereco = new Endereco();
+    endereco.enderecoId = enderecoId;
+    endereco.rua = document.querySelector('#rua').value;
+    endereco.numero = document.querySelector('#numero').value;
+    endereco.complemento = document.querySelector('#complemento').value;
+    let cliente = new Cliente();
+    cliente.clienteId = clienteId;
+    cliente.nome = document.querySelector('#nome').value;
+    cliente.sobrenome = document.querySelector('#sobrenome').value;
+    cliente.rg = document.querySelector('#rg').value;
+    cliente.cpf = document.querySelector('#cpf').value;
+    cliente.endereco = endereco;
+    new ClienteService().edita(cliente);
+    this._editaClienteView.remove();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -286,4 +286,28 @@ public class ClienteDAO {
         }
     }
     
+    public void edita(Cliente cliente){
+        String sql = "UPDATE clientes set nome = ? , sobrenome = ? , rg = ? , cpf = ? where cliente_id = ?";
+        try (Connection con = new ConnectionFactory().getConnection()){
+            con.setAutoCommit(false);
+            new EnderecoDAO().edita(cliente.getEndereco() , con);
+            try (PreparedStatement stmt = con.prepareStatement(sql)){
+                stmt.setString(1, cliente.getNome());
+                stmt.setString(2, cliente.getSobrenome());
+                stmt.setString(3, cliente.getRg());
+                stmt.setString(4, cliente.getCpf());
+                stmt.setLong(5, cliente.getClienteId());
+                stmt.execute();
+                con.commit();
+            } catch (Exception e) {
+                con.rollback();
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+    
 }

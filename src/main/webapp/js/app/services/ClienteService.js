@@ -82,5 +82,21 @@ class ClienteService {
     });
   }
 
+  edita(cliente){
+    let http = new XMLHttpRequest();
+    http.open('PUT' , '/bank_lpoo/webresources/cliente');
+    http.setRequestHeader('Content-type' , "application/json");
+    http.onreadystatechange = () => {
+      if(http.readyState == 4){
+        if (http.status == 200) {
+          alert('Cliente editado !');
+        }else {
+          alert('Erro ao editar cliente');
+        }
+      }
+    }
+    http.send(JSON.stringify(cliente));
+  }
+
 
 }
