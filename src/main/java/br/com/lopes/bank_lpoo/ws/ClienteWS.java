@@ -114,4 +114,21 @@ public class ClienteWS {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("cpf={cpf}")
+    public Response pegaPorCpf(@PathParam("cpf") String cpf){
+        try {
+            Cliente cliente = new Cliente();
+            cliente.setCpf(cpf);
+            List<Cliente> listaClientes = new ClienteDAO().pegaPorCpf(cliente);
+            String json = new Gson().toJson(listaClientes);
+            return Response.ok(json).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

@@ -34,7 +34,9 @@ class ListaClientesView extends ClienteView{
                                   <form class="col-md-3">
                                     <div class="form-group">
                                       <input type="text" class="form-control formBuscaCliente" placeholder="Cpf">
-                                      <button type="button" name="button" class = "btn btn-info"><span class = "glyphicon glyphicon-search"></span></button>
+                                      <button type="button" name="button" class = "btn btn-info" onclick = "clienteController.busca(event)" value = "cpf">
+                                        <span class = "glyphicon glyphicon-search"></span>
+                                      </button>
                                     </div>
                                   </form>
 

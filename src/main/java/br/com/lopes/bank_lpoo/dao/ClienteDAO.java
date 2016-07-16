@@ -202,4 +202,41 @@ public class ClienteDAO {
         }
     }
     
+    public List<Cliente> pegaPorCpf(Cliente cliente){
+        String sql = "select cliente_id ,\n" +
+                     "       nome ,\n" +
+                     "       sobrenome ,\n" +
+                     "       rg ,\n" +
+                     "       cpf \n" +
+                     "from clientes\n" +
+                     "where cpf ilike (?);";
+        try (Connection con = new ConnectionFactory().getConnection()){
+            try (PreparedStatement statement = con.prepareStatement(sql)){
+                statement.setString(1, "%" + cliente.getCpf()+ "%");
+                try (ResultSet rs = statement.executeQuery()){
+                    List<Cliente> listaClientes = new ArrayList<>();
+                    while(rs.next()){
+                        Cliente clienteBanco = new Cliente();
+                        clienteBanco.setClienteId(rs.getLong("cliente_id"));
+                        clienteBanco.setNome(rs.getString("nome"));
+                        clienteBanco.setSobrenome(rs.getString("sobrenome"));
+                        clienteBanco.setCpf(rs.getString("cpf"));
+                        clienteBanco.setRg(rs.getString("rg"));
+                        listaClientes.add(clienteBanco);
+                    }
+                    return listaClientes;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+    
 }
