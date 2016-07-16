@@ -17,7 +17,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -91,6 +90,23 @@ public class ClienteWS {
             Cliente cliente = new Cliente();
             cliente.setSobrenome(sobrenome);
             List<Cliente> listaClientes = new ClienteDAO().pegaPorSobrenome(cliente);
+            String json = new Gson().toJson(listaClientes);
+            return Response.ok(json).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("rg={rg}")
+    public Response pegaPorRg(@PathParam("rg") String rg){
+        try {
+            Cliente cliente = new Cliente();
+            cliente.setRg(rg);
+            List<Cliente> listaClientes = new ClienteDAO().pegaPorRg(cliente);
             String json = new Gson().toJson(listaClientes);
             return Response.ok(json).build();
         } catch (Exception e) {
