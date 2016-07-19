@@ -4,7 +4,9 @@
       <title>Start Page</title>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="css/listaClientes.css" media="screen" title="no title" charset="utf-8">
+      <link rel="stylesheet" href="css/listaClientes.css">
+      <link rel="stylesheet" href="css/base.css">
+
   </head>
   <body>
 
@@ -21,37 +23,6 @@
             <ul class="nav navbar-nav">
               <li class="active"><a href="#" onclick="clienteController.exibeFormulario(event)">Novo Cliente</a></li>
               <li><a href="#" onclick="clienteController.carregaClientes(event)">Clientes Cadastrados</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">Separated link</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
-              </li>
-            </ul>
-            <form class="navbar-form navbar-left" role="search">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-              </div>
-              <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">Link</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">Separated link</a></li>
-                </ul>
-              </li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -63,7 +34,6 @@
 
 
       <div id = "corpo">
-
       </div>
 
     <script src = "js/app/models/Endereco.js"></script>
@@ -72,14 +42,25 @@
     <script src = "js/app/views/CadastroClienteView.js"></script>
     <script src = "js/app/views/ListaClientesView.js"></script>
     <script src = "js/app/views/EditaClienteView.js"></script>
+    <script src = "js/app/views/OpcoesClienteView.js"></script>
     <script src = "js/app/services/ClienteService.js"></script>
+    <script src = "js/app/models/TipoConta.js"></script>
+    <script src = "js/app/models/Conta.js"></script>
+    <script src = "js/app/models/ContaCorrente.js"></script>
     <script src = "js/app/controllers/ClienteController.js"></script>
+    <script src = "js/app/views/NovaContaView.js"></script>
+    <script src = "js/app/services/ContaService.js"></script>
+    <script src = "js/app/controllers/ContaController.js"></script>
     <script>
         let clienteController = new ClienteController();
+        let contaController = new ContaController();
     </script>
 
 
     <script>
+
+      let novaContaView = new NovaContaView('corpo');
+      novaContaView.template()
 
 
 

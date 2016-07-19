@@ -3,6 +3,8 @@ class ClienteController {
     this._cadastroClienteView = new CadastroClienteView('corpo');
     this._listaClientesView = new ListaClientesView('corpo');
     this._editaClienteView = new EditaClienteView('corpo');
+    this._opcoesClienteView = new OpcoesClienteView('corpo');
+    this._cliente = null;
   }
 
   cadastra(event){
@@ -76,7 +78,9 @@ class ClienteController {
     this._listaClientesView.remove();
     let promessa = new ClienteService().pegaPorId(clienteId);
     promessa.then(cliente => {
-      this._editaClienteView.template(cliente);
+      this._cliente = cliente;
+      this._opcoesClienteView.template();
+      //this._editaClienteView.template(cliente);
     }).catch(erro => alert(erro));
   }
 
@@ -98,7 +102,9 @@ class ClienteController {
     this._editaClienteView.remove();
   }
 
-
+  exibeFormularioEdicao(){
+    this._editaClienteView.template(this._cliente);
+  }
 
 
 

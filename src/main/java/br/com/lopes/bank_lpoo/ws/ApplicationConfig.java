@@ -30,7 +30,8 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(br.com.lopes.bank_lpoo.ws.ClienteWS.class);
-        resources.add(br.com.lopes.bank_lpoo.ws.EnderecoWS.class);
+        resources.add(br.com.lopes.bank_lpoo.ws.ContaCorrenteResource.class);
+        resources.add(br.com.lopes.bank_lpoo.ws.TiposContaResource.class);
     }
     
 }

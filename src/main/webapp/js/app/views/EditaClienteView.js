@@ -39,7 +39,6 @@ class EditaClienteView extends ClienteView{
                                         <input id = "complemento" type="text" class="form-control" value = "${cliente.endereco.complemento}">
                                       </div>
                                       <button type="button" name="button" class="btn btn-warning" onclick = "clienteController.edita(event , ${cliente.clienteId} , ${cliente.endereco.enderecoId})">Editar</button>
-                                      <button type="button" name="button" class="btn btn-danger" onclick = "">Excluir</button>
                                     </form>
                                   </div>
                                 </div>`
